@@ -1,5 +1,5 @@
 % Framework developed for simulating multi-agent systems
-function [MAS] = RunMAS(n,ros,gazebo,AerialIDs,GroundIDs)
+function [MAS] = RunMAS(folder,n,ros,gazebo,AerialIDs,GroundIDs)
 
 %% Basic setup
 close all
@@ -8,25 +8,31 @@ close all
 if nargin == 0
     error('Not enough input arguments');
 elseif nargin == 1
+    error('Declare the number of agents and the ros and gazebo flags.\n\n\n')
+elseif nargin == 2
     fprintf('ROS and Gazebo flag not selected, running in MATLAB.\n\n\n')
     ros = false;
     gazebo = false;
     AerialIDs = [];
     GroundIDs = [];
-elseif nargin == 2
-    fprintf('Gazebo flag not selected, running without it.\n\n\n')
+elseif nargin == 3
+    if ros
+        fprintf('Gazebo flag not selected, running without it.\n\n\n')
+    else
+        fprintf('Running simulation in MATLAB.\n\n\n')
+    end
     gazebo = false;
     if ros && isempty(AerialIDs) && isempty(GroundIDs)
         error('Can not run in ROS without any agents!\n\n\n');
     end
     AerialIDs = [];
     GroundIDs = [];
-elseif nargin == 3
+elseif nargin == 4
     fprintf('Running using ROS and Gazebo.\n\n\n');
     if lenght(AerialIDs)+length(GroundIDs)>0
         fprintf('Warning: using Gazebo and real agents.\n\n\n');
     end
-elseif nargin == 4
+elseif nargin == 5
     fprintf('Using only Crazyflies.')
     if ~ros
         error('If you want to use CF, you need to select ROS flag');
@@ -35,12 +41,19 @@ elseif nargin == 4
         error('Number of agents and CFs do not match');
     end
     GroundIDs = [];
-elseif nargin == 5
+elseif nargin == 6
     if length(AerialIDs)+length(GroundIDs)~=n
         error('Number of agents n and actual agents do not match.\n\n\n');
     end
-elseif nargin > 5
+elseif nargin > 6
     error('Too many input arguments.\n\n\n');
+end
+
+% Add working folder directory
+if ~ischar(folder)
+    error('Invalid folder name.\n\n\n');
+else
+    setWorkingFolders(folder);
 end
 
 %% Fundamental Parameters

@@ -30,6 +30,10 @@ for i=1:n
         
     end
     
+    if i==1
+        u_aggregation = u_aggregation + [0.5; 0];
+    end
+    
     % Apply controls, single integrator dynamics
     MAS.agents{i}.u = u_aggregation;
     MAS.u(1:d,i) = u_aggregation;

@@ -39,6 +39,7 @@ if (MAS.showGraphics)
     maxxy = max(xyz(:,1:d));
     axis_val = [minxy(1) maxxy(1) minxy(2) maxxy(2)]+MAS.plotRange/10;
     axis(axis_val);
+    MAS.axis = axis_val;
     
     %% Drawing
     for i=1:n

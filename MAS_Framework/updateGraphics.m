@@ -21,11 +21,13 @@ if (MAS.showGraphics)
     %     offset = [offset; offset];
     %     offset = offset(:)';
     %     axis_val = round(offset + MAS.plotRange);
-    if mod(MAS.iter,100)==0
+        
+    if mod(MAS.iter,50)==0
         minxy = min(xyz(:,1:d));
         maxxy = max(xyz(:,1:d));
         axis_val = [minxy(1) maxxy(1) minxy(2) maxxy(2)]+MAS.plotRange/10;
         axis(axis_val);
+        MAS.axis = axis_val;
     end
     
     %% Re-Drawing

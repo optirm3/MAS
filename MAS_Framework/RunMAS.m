@@ -1,5 +1,5 @@
 % Framework developed for simulating multi-agent systems
-function [MAS] = RunMAS(n,ros,gazebo,RobCFs,RobSAs)
+function [MAS] = RunMAS(n,ros,gazebo,AerialIDs,GroundIDs)
 
 %% Basic setup
 close all
@@ -11,19 +11,19 @@ elseif nargin == 1
     fprintf('ROS and Gazebo flag not selected, running in MATLAB.\n\n\n')
     ros = false;
     gazebo = false;
-    RobCFs = [];
-    RobSAs = [];
+    AerialIDs = [];
+    GroundIDs = [];
 elseif nargin == 2
     fprintf('Gazebo flag not selected, running without it.\n\n\n')
     gazebo = false;
-    if ros && isempty(RobCFs) && isempty(RobSAs)
+    if ros && isempty(AerialIDs) && isempty(GroundIDs)
         error('Can not run in ROS without any agents!\n\n\n');
     end
-    RobCFs = [];
-    RobSAs = [];
+    AerialIDs = [];
+    GroundIDs = [];
 elseif nargin == 3
     fprintf('Running using ROS and Gazebo.\n\n\n');
-    if lenght(RobCFs)+length(RobSAs)>0
+    if lenght(AerialIDs)+length(GroundIDs)>0
         fprintf('Warning: using Gazebo and real agents.\n\n\n');
     end
 elseif nargin == 4
@@ -31,12 +31,12 @@ elseif nargin == 4
     if ~ros
         error('If you want to use CF, you need to select ROS flag');
     end
-    if length(RobCFs)~=n
+    if length(AerialIDs)~=n
         error('Number of agents and CFs do not match');
     end
-    RobSAs = [];
+    GroundIDs = [];
 elseif nargin == 5
-    if length(RobCFs)+length(RobSAs)~=n
+    if length(AerialIDs)+length(GroundIDs)~=n
         error('Number of agents n and actual agents do not match.\n\n\n');
     end
 elseif nargin > 5
@@ -56,9 +56,9 @@ Parameters.rho0 = 0.5;                          % Agent's Visibility
 Parameters.ROS = ros;                           % ROS Interaction
 Parameters.GAZEBO = gazebo;                     % Gazebo
 Parameters.Aerial_HW = 'CF';                    % Select between 'CF' and 'DJI'
-Parameters.RobCFs = RobCFs;                     % Aerial Agents ID
+Parameters.AerialIDs = AerialIDs;                     % Aerial Agents ID
 Parameters.Ground_HW = 'Saetta';                % Only 'Saetta' available now
-Parameters.RobSAs = RobSAs;                     % Ground Agents ID
+Parameters.GroundIDs = GroundIDs;                     % Ground Agents ID
 Parameters.robot_name = 'ardrone';              % Robot model in Gazebo
 
 %% Functionalities data

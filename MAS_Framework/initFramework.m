@@ -11,7 +11,7 @@ MAS.ct = 0;                                      % Current Time
 MAS.l = Parameters.l;                            % Environment Size
 MAS.rho = Parameters.rho;                        % Visibility
 MAS.rho0 = Parameters.rho0;                      % Agents' repulsion interaction radius
-MAS.iter = 0;
+MAS.iter = 0;                                    % MAS iterations
 MAS.eta = 0;                                     % Physical Occupancy [Not Implemented Yet]
 MAS.robot_name = Parameters.robot_name;          % Drone type
 MAS.ROS_MASTER_URI = Parameters.ROS_MASTER_URI;
@@ -20,9 +20,9 @@ MAS.ROS_IP = Parameters.ROS_IP;
 MAS.ROS = Parameters.ROS;
 MAS.GAZEBO = Parameters.GAZEBO;
 MAS.Aerial_HW = Parameters.Aerial_HW;
-MAS.RobCFs = Parameters.RobCFs;
+MAS.AerialIDs = Parameters.AerialIDs;
 MAS.Ground_HW = Parameters.Ground_HW;
-MAS.RobSAs = Parameters.RobSAs;
+MAS.GroundIDs = Parameters.GroundIDs;
 MAS.opt = Parameters.opt;
 MAS.LyapunovAnalysis = Parameters.LyapunovAnalysis;
 MAS.LyapunovGradientAnalysis = Parameters.LyapunovGradientAnalysis;
@@ -49,14 +49,14 @@ MAS.showLinks =  false;
 MAS.showRadius =  false;
 MAS.centerOfGravity = false;
 MAS.showIDs = true;
-MAS.offset_text = 0.05;
 
-% Grahics Properties
+%% Grahics Properties
 if MAS.d == 2
     MAS.plotRange = [-MAS.l MAS.l -MAS.l MAS.l];
 else
     MAS.plotRange = [-MAS.l MAS.l -MAS.l MAS.l -MAS.l MAS.l];
 end
+
 MAS.markerAgents='o';
 MAS.colorAgents='r';
 MAS.lineStyleEdges = '-';
@@ -65,7 +65,7 @@ MAS.colorEdges = 'b';
 MAS.lineStyleRadius = '--';
 MAS.widthRadius = '.5';
 MAS.colorRadius = 'k';
-
+MAS.offset_text = 0.05;
 
 %% ROS Data Structure
 if (MAS.ROS)

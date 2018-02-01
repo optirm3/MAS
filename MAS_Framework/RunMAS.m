@@ -97,9 +97,7 @@ cleanGraphics(MAS);
 plotAgentsSpeed(MAS);
 
 %% Show Distance
-if n<7
-    plotAgentsDistance(MAS);
-end
+plotAgentsDistance(MAS);
 
 % %% Show Lyapunov Evolution
 % plotAgentsLyapunov(MAS);

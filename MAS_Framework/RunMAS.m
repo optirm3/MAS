@@ -49,7 +49,7 @@ Parameters.d = 2;                               % Dimension of the simulation [I
 Parameters.kin = 2;                             % Kinematics [0: Single Integrator; 1: Unicycle; 2: Quadrotor]
 Parameters.s = 0;                               % Angular Dimension [It can be either 0, 1, 2 or 3]
 Parameters.dt = 1/100;                          % Sampling time [s]
-Parameters.t = 10;                              % Simulation time [s]
+Parameters.t = 5;                              % Simulation time [s]
 Parameters.l = 5;                               % Environment One Dimension Size
 Parameters.rho = 20;                            % Agent's Visibility
 Parameters.rho0 = 0.5;                          % Agent's Visibility
@@ -60,6 +60,30 @@ Parameters.RobCFs = RobCFs;                     % Aerial Agents ID
 Parameters.Ground_HW = 'Saetta';                % Only 'Saetta' available now
 Parameters.RobSAs = RobSAs;                     % Ground Agents ID
 Parameters.robot_name = 'ardrone';              % Robot model in Gazebo
+
+%% Functionalities data
+Parameters.opt = false;
+Parameters.LyapunovAnalysis = false;
+Parameters.LyapunovGradientAnalysis = false;
+Parameters.HessianAnalysis = false;
+
+%% Simulation data
+if ros
+    if gazebo
+        alpha = 3.0;
+    else
+        alpha = 1.7;
+    end
+else
+    alpha = 1;
+end
+if (ros && ~gazebo)
+    Parameters.a = alpha*0.6;
+    Parameters.b = alpha*1;
+else
+    Parameters.a = alpha*0.2;
+    Parameters.b = alpha*0.2;
+end
 
 %% Init Matlab for ROS
 % Ros Hostname

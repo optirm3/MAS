@@ -23,29 +23,17 @@ MAS.Aerial_HW = Parameters.Aerial_HW;
 MAS.RobCFs = Parameters.RobCFs;
 MAS.Ground_HW = Parameters.Ground_HW;
 MAS.RobSAs = Parameters.RobSAs;
+MAS.opt = Parameters.opt;
+MAS.LyapunovAnalysis = Parameters.LyapunovAnalysis;
+MAS.LyapunovGradientAnalysis = Parameters.LyapunovGradientAnalysis;
+MAS.HessianAnalysis = Parameters.HessianAnalysis;
+MAS.a = Parameters.a;
+MAS.b = Parameters.b;
 
 MAS.poseHist = [];
 MAS.speedHist = [];
 MAS.graphHist = [];
 
-
-%% Simulation data
-if MAS.ROS
-    if MAS.GAZEBO
-        alpha = 3.0;
-    else
-        alpha = 1.7;
-    end
-else
-    alpha = 1;
-end
-if (MAS.ROS && ~MAS.GAZEBO)
-    MAS.a = alpha*0.6;
-    MAS.b = alpha*1;
-else
-    MAS.a = alpha*0.2;
-    MAS.b = alpha*0.2;
-end
 
 %% Graphics Variables
 % Visibility

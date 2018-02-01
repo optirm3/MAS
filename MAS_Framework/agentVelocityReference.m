@@ -18,7 +18,7 @@ for i=1:N
         ndist(j,i) = ndist(i,j);
     end
 end
-MAS.distHist{MAS.iter} = dist;
+%MAS.distHist{MAS.iter} = dist;
 
 
 %% Compute Basic Control Term
@@ -26,30 +26,36 @@ MAS.distHist{MAS.iter} = dist;
 %MAS.m_ijHist{MAS.iter} = m;
 
 %% Optimization
-% [MAS, u_opt, DF_dx, dot_k] = optimizeGains(MAS, Vij, m);
+if MAS.opt
+    [MAS, u_opt, DF_dx, dot_k] = optimizeGains(MAS, Vij, m);
+end
 
 %% Update velocity
 % [agents] = Update_vel(agents, u_opt, N, dt);
 
 %% Data for Lyapunov stability
-% [V, V1, V2, V3] = LyapunovAnalysis(MAS, u_opt, Vij, m, dist);
-% MAS.V1Hist(MAS.iter) = V1;
-% MAS.V2Hist(MAS.iter) = V2;
-% MAS.VHist(MAS.iter) = V;
+if MAS.LyapunovAnalysis
+    [V, V1, V2, V3] = LyapunovAnalysis(MAS, u_opt, Vij, m, dist);
+    MAS.V1Hist(MAS.iter) = V1;
+    MAS.V2Hist(MAS.iter) = V2;
+    MAS.VHist(MAS.iter) = V;
+end
 
 %% Lyapunov Gradients Analysis
-% [DV] = LyapunovGradientAnalysis(MAS, Vij, m, u_opt, DF_dx, dot_k);
-% MAS.HistDPhi(MAS.iter) = DV;
+if MAS.LyapunovGradientAnalysis
+    [DV] = LyapunovGradientAnalysis(MAS, Vij, m, u_opt, DF_dx, dot_k);
+    MAS.HistDPhi(MAS.iter) = DV;
+end
 
 %% Hessian Analysis
-% if MAS.HessianAnalysis
-%     isSDP = HessianAnalysis(MAS,m,dist);
-%     if ~isSDP
-%         fprintf('%0.2f \t %s\n',MAS.ct,'Hessian not semidefinite positive')
-%     else
-%         fprintf('%0.2f \t %s\n',MAS.ct,'Hessian semidefinite positive')
-%     end
-% end
+if MAS.HessianAnalysis
+    isSDP = HessianAnalysis(MAS,m,dist);
+    if ~isSDP
+        fprintf('%0.2f \t %s\n',MAS.ct,'Hessian not semidefinite positive')
+    else
+        fprintf('%0.2f \t %s\n',MAS.ct,'Hessian semidefinite positive')
+    end
+end
 
 %% References
 

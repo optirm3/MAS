@@ -35,7 +35,7 @@ end
 
 %% Data for Lyapunov stability
 if MAS.LyapunovAnalysis
-    [V, V1, V2, V3] = LyapunovAnalysis(MAS, u_opt, Vij, m, dist);
+    [V, V1, V2] = LyapunovAnalysis(MAS, u_opt, Vij, m, dist);
     MAS.V1Hist(MAS.iter) = V1;
     MAS.V2Hist(MAS.iter) = V2;
     MAS.VHist(MAS.iter) = V;
